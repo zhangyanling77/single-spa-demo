@@ -38,7 +38,6 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Layout from './layout'
 import routeConfig from './router.config'
-import './App.css';
 
 function App() {
   return (
@@ -93,3 +92,9 @@ export default () => (
   <div>About</div>
 )
 ```
+### 2、创建自应用
+* 在主应用根目录下创建子应用文件夹：
+```bash
+mkdir sub-app && cd sub-app
+```
+* 创建两个子应用，以react、vue为例 （angular不做研究）
