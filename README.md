@@ -1,5 +1,7 @@
 ## single-spa-demo
 学习single-spa的一个demo
+* 技术栈
+single-spa/qiankun、react、vue等及其生态
 
 ## 创建项目
 
@@ -92,7 +94,7 @@ export default () => (
   <div>About</div>
 )
 ```
-### 2、创建自应用
+### 2、创建子应用
 * 在主应用根目录下创建子应用文件夹：
 ```bash
 mkdir sub-app && cd sub-app
