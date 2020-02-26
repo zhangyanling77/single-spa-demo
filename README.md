@@ -99,7 +99,7 @@ export default () => (
 ```bash
 mkdir sub-app && cd sub-app
 ```
-* 创建两个子应用，以react、vue为例 （angular不做研究）
+### 创建两个子应用，以react、vue为例 （angular不做研究）
 * 1、创建 react 子应用
 ```bash
 npx create-react-app react-child-demo
