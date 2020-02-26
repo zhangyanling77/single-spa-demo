@@ -43,7 +43,7 @@ import routeConfig from './router.config'
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
         <Layout>
           <Switch>
@@ -103,4 +103,8 @@ mkdir sub-app && cd sub-app
 * 1、创建 react 子应用
 ```bash
 npx create-react-app react-child-demo
+```
+* 2、创建 vue 子应用
+```bash
+vue create vue-child-demo
 ```
