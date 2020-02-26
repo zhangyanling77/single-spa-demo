@@ -15,17 +15,81 @@ yarn add react-router-dom
 ```
 * 创建路由配置文件 router.config.js
 ```javascript
+import Home from './home'
+import About from './about'
+
 export default {
   routes: [
     {
       path: '/home',
-      component: './home',
+      component: Home,
     },
     {
       path: '/about',
-      component: './about'
-    }
-  ]
+      component: About,
+    },
+  ],
 
 }
+```
+* App.js
+```javascript
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Layout from './layout'
+import routeConfig from './router.config'
+import './App.css';
+
+function App() {
+  return (
+    <div className="App">
+      <Router>
+        <Layout>
+          <Switch>
+            {
+              routeConfig.routes.map(item => (
+                <Route key={item.path} path={item.path} component={item.component} />
+              ))
+            }
+          </Switch>
+        </Layout>
+      </Router>
+    </div>
+  );
+}
+
+export default App;
+
+```
+* layout.js
+```javascript
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+export default ({ children }) => {
+  return (
+    <div style={{padding: 40}}>
+      <div>
+        <Link to='/home'>home</Link> | <Link to='/about'>about</Link>
+      </div>
+      {children}
+    </div>
+  )
+}
+```
+* home.js
+```javascript
+import React from 'react';
+
+export default () => (
+  <div>Home</div>
+)
+```
+* about.js
+```javascript
+import React from 'react';
+
+export default () => (
+  <div>About</div>
+)
 ```
