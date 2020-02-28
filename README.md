@@ -94,6 +94,30 @@ export default () => (
   <div>About</div>
 )
 ```
+* 主应用安装qiankun并注册子应用
+```bash
+yarn add qiankun
+```
+```javascript
+import { registerMicroApps, start } from 'qiankun';
+
+registerMicroApps([
+  {
+    name: 'react app', // app name registered
+    entry: '//localhost:7100',
+    render: ({ appContent, loading }) => yourRenderFunction({ appContent, loading }),
+    activeRule: location => yourActiveRule(location),
+  },
+  {
+    name: 'vue app',
+    entry: { scripts: ['//localhost:7100/main.js'] },
+    render: ({ appContent, loading }) => yourRenderFunction({ appContent, loading }),
+    activeRule: location => yourActiveRule(location),
+  },
+]);
+
+start();
+```
 ### 2、创建子应用
 * 在主应用根目录下创建子应用文件夹：
 ```bash
