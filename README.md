@@ -101,18 +101,26 @@ yarn add qiankun
 ```javascript
 import { registerMicroApps, start } from 'qiankun';
 
+function render({ appContent, loading }) {
+  const container = document.getElementById('root');
+  ReactDOM.render(<Framework loading={loading} content={appContent} />, root);
+}
+
+function genActiveRule(routerPrefix) {
+  return location => location.pathname.startsWith(routerPrefix);
+}
+
 registerMicroApps([
-  {
-    name: 'react-child-demo',
-    entry: '//localhost:3001',
-    render: ({ appContent, loading }) => yourRenderFunction({ appContent, loading }),
-    activeRule: location => location.pathname.startsWith('/react'),
+  { 
+    name: 'react-child-demo', 
+    entry: '//localhost:3001', 
+    render, activeRule: genActiveRule('/react') 
   },
-  {
-    name: 'vue-child-demo',
-    entry: { scripts: ['//localhost:8000/main.js'] },
-    render: ({ appContent, loading }) => yourRenderFunction({ appContent, loading }),
-    activeRule: location => location.pathname.startsWith('/vue'),
+  { 
+    name: 'vue-child-demo', 
+    entry: { scripts: ['//localhost:8000/main.js'] }, 
+    render, 
+    activeRule: genActiveRule('/vue') 
   },
 ]);
 
