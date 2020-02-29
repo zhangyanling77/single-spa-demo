@@ -103,16 +103,16 @@ import { registerMicroApps, start } from 'qiankun';
 
 registerMicroApps([
   {
-    name: 'react app', // app name registered
-    entry: '//localhost:7100',
+    name: 'react-child-demo',
+    entry: '//localhost:3001',
     render: ({ appContent, loading }) => yourRenderFunction({ appContent, loading }),
-    activeRule: location => yourActiveRule(location),
+    activeRule: location => location.pathname.startsWith('/react'),
   },
   {
-    name: 'vue app',
-    entry: { scripts: ['//localhost:7100/main.js'] },
+    name: 'vue-child-demo',
+    entry: { scripts: ['//localhost:8000/main.js'] },
     render: ({ appContent, loading }) => yourRenderFunction({ appContent, loading }),
-    activeRule: location => yourActiveRule(location),
+    activeRule: location => location.pathname.startsWith('/vue'),
   },
 ]);
 
