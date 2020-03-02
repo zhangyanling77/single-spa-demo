@@ -101,7 +101,8 @@ export default () => (
 ```bash
 yarn add qiankun
 ```
-* 
+* single-spa-config.js
+
 ```javascript
 import { registerMicroApps, start } from 'qiankun';
 
