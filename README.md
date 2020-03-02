@@ -101,6 +101,7 @@ export default () => (
 ```bash
 yarn add qiankun
 ```
+* 
 ```javascript
 import { registerMicroApps, start } from 'qiankun';
 
