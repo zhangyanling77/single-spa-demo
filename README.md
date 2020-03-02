@@ -10,7 +10,10 @@ single-spa/qiankun、react、vue等及其生态
 
 ```bash
 npx create-react-app single-spa-demo && cd single-spa-demo
+yarn start
 ```
+运行在http://localhost:3000
+
 * 安装路由库
 ```bash
 yarn add react-router-dom
@@ -134,9 +137,14 @@ mkdir sub-app && cd sub-app
 #### 创建两个子应用，以react、vue为例 （angular不做研究）
 * 1、创建 react 子应用
 ```bash
-npx create-react-app react-child-demo
+npx create-react-app react-child-demo && cd react-child-demo
+yarn start
 ```
+运行在http://localhost:3001
+
 * 2、创建 vue 子应用
 ```bash
-vue create vue-child-demo
+vue create vue-child-demo && cd vue-child-demo
+yarn serve
 ```
+运行在http://localhost:8080/
