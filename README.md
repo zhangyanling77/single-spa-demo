@@ -119,11 +119,12 @@ registerMicroApps([
   { 
     name: 'react-child-demo', 
     entry: '//localhost:3001', 
-    render, activeRule: genActiveRule('/react') 
+    render, 
+    activeRule: genActiveRule('/react') 
   },
   { 
     name: 'vue-child-demo', 
-    entry: { scripts: ['//localhost:8000/main.js'] }, 
+    entry: { scripts: ['//localhost:8080/main.js'] }, 
     render, 
     activeRule: genActiveRule('/vue') 
   },
