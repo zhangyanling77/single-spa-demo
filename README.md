@@ -104,6 +104,8 @@ yarn add qiankun
 * single-spa-config.js
 
 ```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { registerMicroApps, start } from 'qiankun';
 
 function render({ appContent, loading }) {
