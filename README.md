@@ -14,6 +14,55 @@ yarn start
 ```
 运行在http://localhost:3000
 
+* 主应用安装qiankun并注册子应用
+```bash
+yarn add qiankun
+```
+* single-spa-config.js
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { registerMicroApps, start } from 'qiankun';
+
+function render({ appContent, loading }) {
+  const container = document.getElementById('root');
+  ReactDOM.render(<Framework loading={loading} content={appContent} />, root);
+}
+
+function genActiveRule(routerPrefix) {
+  return location => location.pathname.startsWith(routerPrefix);
+}
+
+registerMicroApps([
+  { 
+    name: 'react-child-demo', 
+    entry: '//localhost:3001', 
+    render, 
+    activeRule: genActiveRule('/react') 
+  },
+  { 
+    name: 'vue-child-demo', 
+    entry: { scripts: ['//localhost:8080/main.js'] }, 
+    render, 
+    activeRule: genActiveRule('/vue') 
+  },
+]);
+
+start();
+```
+### 2、创建子应用
+* 在主应用根目录下创建子应用文件夹：
+```bash
+mkdir sub-app && cd sub-app
+```
+#### 创建两个子应用，以react、vue为例 （angular不做研究）
+* 1、创建 react 子应用
+```bash
+npx create-react-app react-child-demo && cd react-child-demo
+yarn start
+```
+运行在http://localhost:3001
 * 安装路由库
 ```bash
 yarn add react-router-dom
@@ -97,56 +146,6 @@ export default () => (
   <div>About</div>
 )
 ```
-* 主应用安装qiankun并注册子应用
-```bash
-yarn add qiankun
-```
-* single-spa-config.js
-
-```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { registerMicroApps, start } from 'qiankun';
-
-function render({ appContent, loading }) {
-  const container = document.getElementById('root');
-  ReactDOM.render(<Framework loading={loading} content={appContent} />, root);
-}
-
-function genActiveRule(routerPrefix) {
-  return location => location.pathname.startsWith(routerPrefix);
-}
-
-registerMicroApps([
-  { 
-    name: 'react-child-demo', 
-    entry: '//localhost:3001', 
-    render, 
-    activeRule: genActiveRule('/react') 
-  },
-  { 
-    name: 'vue-child-demo', 
-    entry: { scripts: ['//localhost:8080/main.js'] }, 
-    render, 
-    activeRule: genActiveRule('/vue') 
-  },
-]);
-
-start();
-```
-### 2、创建子应用
-* 在主应用根目录下创建子应用文件夹：
-```bash
-mkdir sub-app && cd sub-app
-```
-#### 创建两个子应用，以react、vue为例 （angular不做研究）
-* 1、创建 react 子应用
-```bash
-npx create-react-app react-child-demo && cd react-child-demo
-yarn start
-```
-运行在http://localhost:3001
-
 * 2、创建 vue 子应用
 ```bash
 vue create vue-child-demo && cd vue-child-demo
