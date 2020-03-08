@@ -24,6 +24,7 @@ yarn add qiankun
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { registerMicroApps, start } from 'qiankun';
+import Framework from './Framework';
 
 function render({ appContent, loading }) {
   const container = document.getElementById('root');
