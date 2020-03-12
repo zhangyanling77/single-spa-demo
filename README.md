@@ -14,6 +14,61 @@ yarn start
 ```
 运行在http://localhost:3000
 
+* 安装路由库
+```bash
+yarn add react-router-dom
+```
+* 创建router.js
+```javascript
+import React, { Suspense, lazy, memo } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+const Layouts = lazy(() => import('./components/layouts'));
+const Welcome = lazy(() => import('./components/welcome'));
+
+const RouterComponent = () => {
+  return (
+    <Router>
+      <Suspense fallback={<div>loading...</div>}>
+        <Layouts>
+          <Switch>
+            <Route exact={true} path='/' component={Welcome} />
+            <Route render={() =><h1>404 Not Found</h1>} />
+          </Switch>
+        </Layouts>
+      </Suspense>
+    </Router>
+  )
+};
+
+export default memo(RouterComponent);
+```
+* components/layouts.js
+```javascript
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+export default ({ children }) => {
+  return (
+    <div style={{padding: 40}}>
+      <div>
+        <Link to='/react'>react app</Link> | <Link to='/vue'>vue app</Link>
+      </div>
+      {children}
+    </div>
+  )
+}
+```
+* components/welcome.js
+```javascript
+import React from 'react';
+
+export default () => {
+  return (
+    <h1>Welcome to My-Single-Spa App ！</h1>
+  )
+}
+```
 * 主应用安装qiankun并注册子应用
 ```bash
 yarn add qiankun
@@ -51,35 +106,6 @@ registerMicroApps([
 ]);
 
 start();
-```
-* 安装路由库
-```bash
-yarn add react-router-dom
-```
-* 创建router.js
-```javascript
-import React, { Suspense, lazy, memo } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-const Layouts = lazy(() => import('./components/layouts'));
-const Welcome = lazy(() => import('./components/welcome'));
-
-const RouterComponent = () => {
-  return (
-    <Router>
-      <Suspense fallback={<div>loading...</div>}>
-        <Layouts>
-          <Switch>
-            <Route exact={true} path='/' component={Welcome} />
-            <Route render={() =><h1>404 Not Found</h1>} />
-          </Switch>
-        </Layouts>
-      </Suspense>
-    </Router>
-  )
-};
-
-export default memo(RouterComponent);
 ```
 ### 2、创建子应用
 * 在主应用根目录下创建子应用文件夹：
