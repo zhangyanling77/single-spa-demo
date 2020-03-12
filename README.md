@@ -56,6 +56,31 @@ start();
 ```bash
 yarn add react-router-dom
 ```
+* 创建router.js
+```javascript
+import React, { Suspense, lazy, memo } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+const Layouts = lazy(() => import('./components/layouts'));
+const Welcome = lazy(() => import('./components/welcome'));
+
+const RouterComponent = () => {
+  return (
+    <Router>
+      <Suspense fallback={<div>loading...</div>}>
+        <Layouts>
+          <Switch>
+            <Route exact={true} path='/' component={Welcome} />
+            <Route render={() =><h1>404 Not Found</h1>} />
+          </Switch>
+        </Layouts>
+      </Suspense>
+    </Router>
+  )
+};
+
+export default memo(RouterComponent);
+```
 ### 2、创建子应用
 * 在主应用根目录下创建子应用文件夹：
 ```bash
