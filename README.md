@@ -52,6 +52,10 @@ registerMicroApps([
 
 start();
 ```
+* 安装路由库
+```bash
+yarn add react-router-dom
+```
 ### 2、创建子应用
 * 在主应用根目录下创建子应用文件夹：
 ```bash
