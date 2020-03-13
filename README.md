@@ -77,10 +77,8 @@ yarn add qiankun
 
 ```javascript
 import { registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start } from 'qiankun';
-import './index.css';
-
-import renderReact from './render/reactRender';
-import renderVue from './render/vueRender';
+import render from './render/reactRender';
+// import render from './render/vueRender';
 // 处于激活的路由
 function genActiveRule(routerPrefix) {
   return location => location.pathname.startsWith(routerPrefix);
@@ -89,7 +87,7 @@ function genActiveRule(routerPrefix) {
 /**
  * step1 初始化应用
  */
-renderReact({ appContent: '', loading: true });
+render({ appContent: '', loading: true });
 
 /**
  * step2 注册子应用
@@ -98,7 +96,7 @@ registerMicroApps([
   { 
     name: 'react-child-demo', 
     entry: '//localhost:3001', 
-    renderReact, 
+    render, 
     activeRule: genActiveRule('/react') 
   },
   { 
@@ -106,7 +104,7 @@ registerMicroApps([
     entry: { 
       scripts: ['//localhost:8080']
     }, 
-    renderVue, 
+    render, 
     activeRule: genActiveRule('/vue') 
   },
 ], {
