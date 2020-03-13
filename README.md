@@ -76,36 +76,71 @@ yarn add qiankun
 * single-spa-config.js
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { registerMicroApps, start } from 'qiankun';
-import Framework from './Framework';
+import { registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start } from 'qiankun';
+import './index.css';
 
-function render({ appContent, loading }) {
-  const container = document.getElementById('root');
-  ReactDOM.render(<Framework loading={loading} content={appContent} />, root);
-}
-
+import renderReact from './render/reactRender';
+import renderVue from './render/vueRender';
+// 处于激活的路由
 function genActiveRule(routerPrefix) {
   return location => location.pathname.startsWith(routerPrefix);
 }
 
+/**
+ * step1 初始化应用
+ */
+renderReact({ appContent: '', loading: true });
+
+/**
+ * step2 注册子应用
+ */
 registerMicroApps([
   { 
     name: 'react-child-demo', 
     entry: '//localhost:3001', 
-    render, 
+    renderReact, 
     activeRule: genActiveRule('/react') 
   },
   { 
     name: 'vue-child-demo', 
-    entry: { scripts: ['//localhost:8080/main.js'] }, 
-    render, 
+    entry: { 
+      scripts: ['//localhost:8080']
+    }, 
+    renderVue, 
     activeRule: genActiveRule('/vue') 
   },
-]);
+], {
+  beforeLoad: [
+    app => {
+      console.log('[lifeSyscle] before laod %c%s', 'color: green;', app.name)
+    },
+  ],
+  beforeMount: [
+    app => {
+      console.log('[LifeCycle] before mount %c%s', 'color: red;', app.name);
+    },
+  ],
+  afterUnmount: [
+    app => {
+      console.log('[LifeCycle] after unmount %c%s', 'color: blue;', app.name);
+    },
+  ],
+});
 
-start();
+/**
+ * step3 设置默认进入的子应用
+ */
+setDefaultMountApp('/react');
+
+/**
+ * step4 启动应用
+ */
+start({ prefetch: true, jsSandbox: true, singular: true, fetch: window.fetch });
+
+runAfterFirstMounted(() => {
+  console.log('[MainApp] first app mounted');
+});
+
 ```
 ### 2、创建子应用
 * 在主应用根目录下创建子应用文件夹：
